@@ -1,22 +1,23 @@
 import { useEffect, useState } from "react";
-import { callApi } from "../api/callApi";
-import * as ENDPOINTS from "../constants/EndpointConstants";
+import { useDispatch, useSelector } from "react-redux";
+import { cities } from "../constants/Cities";
 import WeatherCard from "../components/WeatherCard";
+import { fetchWeather } from "../redux/actions/actions";
+import { getWeather } from "../redux/selectors/weatherSelectors";
 
 function WeatherApp() {
-  const [name, setName] = useState<any>("");
-  const res = async () => {
-    const res = await callApi(
-      ENDPOINTS.CURRENT_AND_FORECAST_WEATHER_DATA({ city: "London" })
-    );
-    setName(res.weather);
-  };
-  useEffect(() => {
-    res();
+  const dispatch = useDispatch();
+  const weather = useSelector(getWeather);
+  const filteredWeather = Array.from(new Set(weather.map((a) => a.id))).map(
+    (id) => {
+      return weather.find((a) => a.id === id);
+    }
+  );
+  const text = useEffect(() => {
+    cities.forEach((city) => dispatch(fetchWeather.REQUEST({ city: city })));
   }, []);
-  console.log("name", name);
-
-  return <WeatherCard text={name[0].main} />;
+  console.log("weather", filteredWeather);
+  return <WeatherCard weather={filteredWeather} />;
 }
 
 export default WeatherApp;

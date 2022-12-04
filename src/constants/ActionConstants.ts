@@ -1,0 +1,1 @@
+export const WEATHER_REQUEST = "WEATHER_REQUEST";
