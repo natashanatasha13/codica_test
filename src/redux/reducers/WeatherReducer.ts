@@ -12,6 +12,9 @@ export const weather = (
     case actions.fetchWeather.types.SUCCESS: {
       return [...state, action.payload];
     }
+    case actions.removeCity(action.payload).type: {
+      return state.filter((element) => element.name !== action.payload);
+    }
     default: {
       return state;
     }

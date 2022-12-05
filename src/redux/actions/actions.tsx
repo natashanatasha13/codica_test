@@ -7,3 +7,7 @@ export const fetchWeather = createAsyncActions<
   void,
   "WEATHER_REQUEST"
 >("WEATHER_REQUEST");
+
+export const removeCity = (payload: string) => {
+  return { type: "REMOVE_CITY", payload };
+};

@@ -1,4 +1,4 @@
-import { call, put, takeEvery } from "redux-saga/effects";
+import { call, put, takeEvery, takeLatest } from "redux-saga/effects";
 import { GetReturnType } from "../../types/types";
 import { fetchWeather } from "../../api/weather";
 import * as actions from "../actions/actions";
@@ -11,7 +11,6 @@ function* fetchWeatherSaga(
 ) {
   const { city } = action.payload;
   const res: Response<WeatherResponse> = yield call(fetchWeather, city);
-  console.log(res);
   if (res.success) {
     yield put(actions.fetchWeather.SUCCESS(res.data));
   } else {
