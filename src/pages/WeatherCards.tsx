@@ -6,7 +6,7 @@ import { fetchWeather, removeCity } from "../redux/actions/actions";
 import { getWeather } from "../redux/selectors/weatherSelectors";
 import { WeatherResponse } from "../types/types";
 
-function WeatherApp() {
+const WeatherCards = () => {
   const dispatch = useDispatch();
   const weather = useSelector(getWeather);
 
@@ -68,6 +68,6 @@ function WeatherApp() {
       deleteCity={deleteCity}
     />
   );
-}
+};
 
-export default WeatherApp;
+export default WeatherCards;

@@ -2,7 +2,6 @@ import {
   styled,
   Typography,
   Button,
-  Tooltip,
   Select,
   MenuItem,
   FormControl,
@@ -50,9 +49,10 @@ const WeatherCard = ({ weather, refreshfData, addCity, deleteCity }: Props) => {
   return (
     <Wrapper>
       <SelectnWrapper>
-        <Typography variant="h5">Add another city</Typography>
+        <Title variant="h5">Add another city</Title>
         <FormControl fullWidth>
           <Select
+            sx={{ color: "#1b3b81" }}
             defaultValue={value}
             value={value}
             placeholder="Choose weather to add"
@@ -67,58 +67,55 @@ const WeatherCard = ({ weather, refreshfData, addCity, deleteCity }: Props) => {
 
       <CardContainer>
         {weather.map((weatherByCity) => (
-          <Tooltip title="More info" placement="bottom" arrow={true}>
-            <Card
-              onClick={() =>
-                moreInfo(
-                  weatherByCity.id.toString(),
-                  weatherByCity.name.toString()
-                )
-              }
-            >
-              <InfoContainer>
-                <Typography variant="h5">Weather in:</Typography>
+          <Card
+            onClick={() =>
+              moreInfo(
+                weatherByCity.id.toString(),
+                weatherByCity.name.toString()
+              )
+            }
+          >
+            <InfoContainer>
+              <Title variant="h5">Weather in:</Title>
 
-                <CityName variant="h4">{weatherByCity.name}</CityName>
-                <WeatherDescriptionWrapper>
-                  <WeatherDescription>
-                    <div>{`Clouds:${weatherByCity.weather[0].main}:${weatherByCity.weather[0].description}`}</div>
-                    <div>{`Temperature:${weatherByCity.main.temp}`}</div>
-                    <div>{`Wind speed:${weatherByCity.wind.speed}`}</div>
-                  </WeatherDescription>
-                </WeatherDescriptionWrapper>
-              </InfoContainer>
-              <ButtonContainer>
-                <WeatherButton
-                  size="small"
-                  onClick={(event) => refreshWeather(event)}
-                  variant="contained"
-                  sx={{
-                    backgroundColor: "rgb(21, 133, 167)",
-                    width: 200,
-                    height: 50,
-                  }}
-                >
-                  Refresh weather
-                </WeatherButton>
-                <RemoveButton
-                  size="small"
-                  variant="contained"
-                  sx={{
-                    backgroundColor: "rgb(133, 169, 236)",
-                    width: 200,
-                    height: 50,
-                    color: "error",
-                  }}
-                  onClick={(event) =>
-                    handleRemoveCity(weatherByCity.name, event)
-                  }
-                >
-                  Remove City
-                </RemoveButton>
-              </ButtonContainer>
-            </Card>
-          </Tooltip>
+              <CityName variant="h4">{weatherByCity.name}</CityName>
+              <WeatherDescriptionWrapper>
+                <WeatherDescription>
+                  <div>{`Sky:${weatherByCity.weather[0].description}`}</div>
+                  <div>{`Temperature:${weatherByCity.main.temp}`}</div>
+                  <div>{`Wind speed:${weatherByCity.wind.speed}`}</div>
+                </WeatherDescription>
+              </WeatherDescriptionWrapper>
+            </InfoContainer>
+            <ButtonContainer>
+              <WeatherButton
+                size="small"
+                onClick={(event) => refreshWeather(event)}
+                variant="contained"
+                sx={{
+                  backgroundColor: "rgb(21, 133, 167)",
+                  width: 200,
+                  height: 50,
+                  color: "white",
+                }}
+              >
+                Refresh weather
+              </WeatherButton>
+              <RemoveButton
+                size="small"
+                variant="contained"
+                sx={{
+                  backgroundColor: "rgb(133, 169, 236)",
+                  width: 200,
+                  height: 50,
+                  color: "error",
+                }}
+                onClick={(event) => handleRemoveCity(weatherByCity.name, event)}
+              >
+                Remove City
+              </RemoveButton>
+            </ButtonContainer>
+          </Card>
         ))}
       </CardContainer>
     </Wrapper>
@@ -147,7 +144,9 @@ const WeatherButton = styled(Button)`
 const RemoveButton = styled(Button)`
   margin-top: 10px;
 `;
-const CityName = styled(Typography)``;
+const CityName = styled(Typography)`
+  color: white;
+`;
 const WeatherDescriptionWrapper = styled("div")``;
 const SelectnWrapper = styled("div")`
   width: 400px;
@@ -157,21 +156,37 @@ const SelectnWrapper = styled("div")`
   margin-bottom: 50px;
 `;
 
-const WeatherDescription = styled(Typography)``;
+const WeatherDescription = styled(Typography)`
+  color: white;
+`;
+const Title = styled(Typography)`
+  color: #1b3b81;
+`;
 
-const Wrapper = styled("div")``;
+const Wrapper = styled("div")`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  background-color: rgb(195, 203, 206);
+  height: 100%;
+`;
 const CardContainer = styled("div")`
   display: flex;
+  flex-wrap: wrap;
   justify-content: center;
   align-items: center;
   gap: 20px;
   margin: 20px;
+  margin-bottom: 100px;
 `;
 const Card = styled("div")`
   cursor: pointer;
   width: 300px;
   height: 300px;
-  border: 1px solid black;
+  border: 1px solid white;
+  background-color: rgb(135, 160, 184);
+
   border-radius: 20px;
   display: flex;
   flex-direction: column;
