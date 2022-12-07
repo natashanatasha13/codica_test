@@ -13,8 +13,7 @@ const WeatherCards = () => {
   const getLocalStorageValue = () => {
     let localStorageValues: WeatherResponse[] = [];
     Object.keys(localStorage).forEach((key) => {
-      //@ts-ignore
-      localStorageValues.push(JSON.parse(localStorage.getItem(key)));
+      localStorageValues.push(JSON.parse(localStorage.getItem(key) ?? ""));
     });
     return localStorageValues;
   };
@@ -62,6 +61,7 @@ const WeatherCards = () => {
   }, [weather]);
   return (
     <WeatherCard
+      data-testid="weatherCards"
       addCity={addCity}
       refreshfData={refreshfData}
       weather={savedWeather}

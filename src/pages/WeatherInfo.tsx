@@ -10,8 +10,7 @@ const WeatherInfo = () => {
   const getLocalStorageValue = () => {
     let localStorageValues: WeatherResponse[] = [];
     Object.keys(localStorage).forEach((key) => {
-      //@ts-ignore
-      localStorageValues.push(JSON.parse(localStorage.getItem(key)));
+      localStorageValues.push(JSON.parse(localStorage.getItem(key) ?? ""));
     });
     return localStorageValues;
   };
@@ -49,7 +48,6 @@ const Wrapper = styled("div")`
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: rgb(195, 203, 206);
   height: 100vh;
 `;
 const WeatherContainer = styled("div")`
@@ -62,6 +60,7 @@ const WeatherContainer = styled("div")`
   border: 1px solid white;
   border-radius: 20px;
   background-color: rgb(135, 160, 184);
+  cursor: default;
 `;
 const Title = styled(Typography)`
   margin-bottom: 10px;

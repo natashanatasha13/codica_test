@@ -34,7 +34,7 @@ export type WeatherResponse = {
   timezone: number;
   visibility: number;
   weather: { id: number; main: string; description: string; icon: string }[];
-  wind: { speed: number; deg: number };
+  wind: { speed: number; deg: number; gust: number };
 };
 
 export type Response<TSuccess, TFailed = [string]> =

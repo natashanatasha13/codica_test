@@ -42,82 +42,93 @@ const WeatherCard = ({ weather, refreshfData, addCity, deleteCity }: Props) => {
     event: React.MouseEvent<HTMLButtonElement, MouseEvent>
   ) => {
     deleteCity(cityToRemove);
-    console.log(cityToRemove);
     event.stopPropagation();
   };
-
   return (
     <Wrapper>
-      <SelectnWrapper>
-        <Title variant="h5">Add another city</Title>
-        <FormControl fullWidth>
-          <Select
-            sx={{ color: "#1b3b81" }}
-            defaultValue={value}
-            value={value}
-            placeholder="Choose weather to add"
-            onChange={handleChange}
-          >
-            {citiesForSelect.map((city) => (
-              <MenuItem value={city}>{city}</MenuItem>
-            ))}
-          </Select>
-        </FormControl>
-      </SelectnWrapper>
+      <>
+        <SelectnWrapper>
+          <Title variant="h5">Add another city</Title>
+          <FormControl fullWidth>
+            <Select
+              data-testid="select"
+              sx={{ color: "#1b3b81" }}
+              defaultValue={value}
+              value={value}
+              placeholder="Choose weather to add"
+              onChange={handleChange}
+            >
+              {citiesForSelect.map((city) => (
+                <MenuItem
+                  data-testid="select-item"
+                  key={city.key}
+                  value={city.city}
+                >
+                  {city.city}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+        </SelectnWrapper>
 
-      <CardContainer>
-        {weather.map((weatherByCity) => (
-          <Card
-            onClick={() =>
-              moreInfo(
-                weatherByCity.id.toString(),
-                weatherByCity.name.toString()
-              )
-            }
-          >
-            <InfoContainer>
-              <Title variant="h5">Weather in:</Title>
+        <CardContainer>
+          {weather.map((weatherByCity) => (
+            <Card
+              onClick={() =>
+                moreInfo(
+                  weatherByCity.id.toString(),
+                  weatherByCity.name.toString()
+                )
+              }
+            >
+              <InfoContainer>
+                <Title variant="h5">Weather in:</Title>
 
-              <CityName variant="h4">{weatherByCity.name}</CityName>
-              <WeatherDescriptionWrapper>
-                <WeatherDescription>
-                  <div>{`Sky:${weatherByCity.weather[0].description}`}</div>
-                  <div>{`Temperature:${weatherByCity.main.temp}`}</div>
-                  <div>{`Wind speed:${weatherByCity.wind.speed}`}</div>
-                </WeatherDescription>
-              </WeatherDescriptionWrapper>
-            </InfoContainer>
-            <ButtonContainer>
-              <WeatherButton
-                size="small"
-                onClick={(event) => refreshWeather(event)}
-                variant="contained"
-                sx={{
-                  backgroundColor: "rgb(21, 133, 167)",
-                  width: 200,
-                  height: 50,
-                  color: "white",
-                }}
-              >
-                Refresh weather
-              </WeatherButton>
-              <RemoveButton
-                size="small"
-                variant="contained"
-                sx={{
-                  backgroundColor: "rgb(133, 169, 236)",
-                  width: 200,
-                  height: 50,
-                  color: "error",
-                }}
-                onClick={(event) => handleRemoveCity(weatherByCity.name, event)}
-              >
-                Remove City
-              </RemoveButton>
-            </ButtonContainer>
-          </Card>
-        ))}
-      </CardContainer>
+                <CityName variant="h4">{weatherByCity.name}</CityName>
+                <WeatherDescriptionWrapper>
+                  <WeatherDescription>
+                    <div>{`Sky:${weatherByCity.weather[0].description}`}</div>
+                    <div>{`Temperature:${weatherByCity.main.temp}`}</div>
+                    <div>{`Wind speed:${weatherByCity.wind.speed}`}</div>
+                  </WeatherDescription>
+                </WeatherDescriptionWrapper>
+              </InfoContainer>
+              <ButtonContainer>
+                <WeatherButton
+                  data-testid="weather-button"
+                  size="small"
+                  onClick={(event) => refreshWeather(event)}
+                  variant="contained"
+                  sx={{
+                    backgroundColor: "rgb(21, 133, 167)",
+                    width: 200,
+                    height: 50,
+                    color: "white",
+                  }}
+                >
+                  Refresh weather
+                </WeatherButton>
+                <RemoveButton
+                  data-testid="remove-button"
+                  size="small"
+                  variant="contained"
+                  sx={{
+                    backgroundColor: "rgb(133, 169, 236)",
+                    width: 200,
+                    height: 50,
+                    color: "error",
+                  }}
+                  onClick={(event) =>
+                    handleRemoveCity(weatherByCity.name, event)
+                  }
+                >
+                  Remove City
+                </RemoveButton>
+              </ButtonContainer>
+            </Card>
+          ))}
+        </CardContainer>
+      </>
     </Wrapper>
   );
 };
@@ -168,7 +179,6 @@ const Wrapper = styled("div")`
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  background-color: rgb(195, 203, 206);
   height: 100%;
 `;
 const CardContainer = styled("div")`
