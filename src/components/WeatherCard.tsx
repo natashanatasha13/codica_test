@@ -186,7 +186,7 @@ const CardContainer = styled("div")`
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
-  gap: 20px;
+  gap: 15px;
   margin: 20px;
   margin-bottom: 100px;
 `;
